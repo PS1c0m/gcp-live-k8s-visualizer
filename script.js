@@ -39,7 +39,7 @@ var insertByName = function(index, value) {
     return;
   }
   // console.log("type = " + value.type + " labels = " + value.metadata.name);
-  //	var list = groups[value.metadata.name];
+  // var list = groups[value.metadata.name];
   var key = value.metadata.labels.name;
 	var list = groups[key];
 	if (!list) {
@@ -69,14 +69,14 @@ var connectControllers = function() {
     connectUses();
 	for (var i = 0; i < controllers.items.length; i++) {
 		var controller = controllers.items[i];
-    //console.log("controller: " + controller.metadata.name)
+    	//console.log("controller: " + controller.metadata.name)
 		for (var j = 0; j < pods.items.length; j++) {
 			var pod = pods.items[j];
 			if (pod.metadata.labels.name == controller.metadata.labels.name) {
         if (controller.metadata.labels.version && pod.metadata.labels.version && (controller.metadata.labels.version != pod.metadata.labels.version)) {
           continue;
         }
-        //console.log('connect controller: ' + 'controller-' + controller.metadata.name + ' to pod-' + pod.metadata.name);
+        		//console.log('connect controller: ' + 'controller-' + controller.metadata.name + ' to pod-' + pod.metadata.name);
 				jsPlumb.connect({
 					source: 'controller-' + controller.metadata.name,
 					target: 'pod-' + pod.metadata.name,
@@ -90,10 +90,10 @@ var connectControllers = function() {
 	}
 	for (var i = 0; i < services.items.length; i++) {
 		var service = services.items[i];
-    //            if (service.metadata.name == 'kubernetes' || service.metadata.name == 'skydns' || service.metadata.name == 'kubernetes-ro') { continue; }
+  		//if (service.metadata.name == 'kubernetes' || service.metadata.name == 'skydns' || service.metadata.name == 'kubernetes-ro') { continue; }
 		for (var j = 0; j < pods.items.length; j++) {
 			var pod = pods.items[j];
-      //console.log('connect service: ' + 'service-' + service.metadata.name + ' to pod-' + pod.metadata.name);
+      		//console.log('connect service: ' + 'service-' + service.metadata.name + ' to pod-' + pod.metadata.name);
 			if (matchesLabelQuery(pod.metadata.labels, service.spec.selector)) {
 				jsPlumb.connect(
 					{
@@ -129,19 +129,19 @@ var connectUses = function() {
 		if (colorIx >= colors.length) { colorIx = 0;};
 		$.each(pods.items, function(i, pod) {
         var podKey = pod.metadata.labels.name;
-         //console.log('connect uses key: ' +key + ', ' + podKey);
+         	//console.log('connect uses key: ' +key + ', ' + podKey);
 			if (podKey == key) {
 				$.each(list, function(j, serviceId) {
-          //console.log('connect: ' + 'pod-' + pod.metadata.name + ' to service-' + serviceId);
+          		//console.log('connect: ' + 'pod-' + pod.metadata.name + ' to service-' + serviceId);
 					jsPlumb.connect(
 					{
 						source: 'pod-' + pod.metadata.name,
 						target: 'service-' + serviceId,
 						endpoint: "Blank",
 						//anchors:["Bottom", "Top"],
-            anchors:[[ 0.5, 1, 0, 1, -30, 0 ], "Top"],
+            			anchors:[[ 0.5, 1, 0, 1, -30, 0 ], "Top"],
 						//connector: "Straight",
-            connector: ["Bezier", { curviness:75 }],
+            			connector: ["Bezier", { curviness:75 }],
 						paintStyle:{lineWidth:2,strokeStyle:color},
 						overlays:[
     						[ "Arrow", { width:15, length:30, location: 0.3}],
@@ -185,7 +185,7 @@ var makeGroupOrder = function() {
 	});
   groupOrder.sort(function(a, b) { return groupScores[a] - groupScores[b]; });
 
-	//console.log(groupOrder);
+  //console.log(groupOrder);
   return groupOrder;
 };
 
@@ -231,8 +231,8 @@ var renderGroups = function() {
 		var div = $('<div/>');
 		var x = 100;
 		$.each(list, function(index, value) {
-      //console.log("render groups: " + value.type + ", " + value.metadata.name + ", " + index)
-			var eltDiv = null;
+      	//console.log("render groups: " + value.type + ", " + value.metadata.name + ", " + index)
+		var eltDiv = null;
       console.log(value);
       var phase = value.status.phase ? value.status.phase.toLowerCase() : '';
 			if (value.type == "pod") {
@@ -346,7 +346,7 @@ function refresh(instance) {
 	pods = [];
 	services = [];
 	controllers = [];
-  nodes = [];
+  	nodes = [];
 	uses = {};
 	groups = {};
 
@@ -354,7 +354,7 @@ function refresh(instance) {
 	$.when(loadData()).then(function() {
 		groupByName();
 		$('#sheet').empty();
-    renderNodes();
+    	renderNodes();
 		renderGroups();
 		connectControllers();
 
