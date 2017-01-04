@@ -15,10 +15,9 @@ That's it.  The visualizer uses labels to organize the visualization.  In partic
    * the pods in your cluster will have a ```uses``` label which contains a comma separated list of services that the pod uses.
 
 
-   
-   * White indicates a healthy node
-   * Red indicates a non-healthy node
-   * Gray indicates a running pod
-   * Yellow indicates a pending pod
-   * Green indicates a service
-   * Blue indicates a replication controller
+   - White indicates a healthy node
+   - Red indicates a non-healthy node
+   - Gray indicates a running pod
+   - Yellow indicates a pending pod
+   - Green indicates a service
+   - Blue indicates a replication controller
