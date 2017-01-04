@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: darknet
+  labels:
+    name: darknet
+    visualize: "true"
+    app: darknet
+spec:
+  type: NodePort
+  selector:
+    app: darknet
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: darknet
+data:
+  index: |
+    <h2>Hi kube!</h2>
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: darknet
+  labels:
+    name: darknet
+    visualize: "true"
+    app: darknet
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: darknet
+  template:
+    metadata:
+      name: darknet
+      labels:
+        name: darknet
+        visualize: "true"
+        app: darknet
+    spec:
+      containers:
+        - name: darknet
+          image: httpd:alpine
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: "/usr/local/apache2/htdocs"
+              name: index
+      volumes:
+        - name: index
+          configMap:
+            name: darknet
+            items:
+              - key: index
+                path: index.html
