@@ -6,7 +6,7 @@ NB! As replicationcontroller is depricated it is replaced with deployment
 
 ### Usage:
    * First install a Kubernetes or Container Engine Cluster
-   * ```git clone https://github.com/saturnism/gcp-live-k8s-visualizer.git```
+   * ```git clone https://github.com/PS1c0m/gcp-live-k8s-visualizer.git```
    * ```kubectl proxy --www=path/to/gcp-live-k8s-visualizer```
 
 That's it.  The visualizer uses labels to organize the visualization.  In particular it expects that
