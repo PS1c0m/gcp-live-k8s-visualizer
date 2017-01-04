@@ -14,7 +14,7 @@ That's it.  The visualizer uses labels to organize the visualization.  In partic
    * pods, replicationcontrollers, and services have a ```name``` label, and pods and their associated replication controller share the same ```name```, and
    * the pods in your cluster will have a ```uses``` label which contains a comma separated list of services that the pod uses.
 
-
+Colors
    - White indicates a healthy node
    - Red indicates a non-healthy node
    - Gray indicates a running pod
